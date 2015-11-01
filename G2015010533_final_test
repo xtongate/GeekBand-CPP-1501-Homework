@@ -1,0 +1,128 @@
+1. 设计一个多边形Polygon，其由若干个点连成线。为其实现构造函数，拷贝构
+造函数，复制操作符，析构函数。
+class shape{
+  int no; //形状编号
+};
+class Point{
+int x;
+int y;
+};
+class Polygon: public Shape{
+vector<Point> m_Points;
+};
+答：
+class Polygon: public Shape{
+Point* points;
+public:
+  Polygon();
+  Polygon(Vector<Point> vecPoints);
+  virtuan ~Polygon();
+  Polygon(Polygon&);
+};
+Polygon::Polygon(){
+
+}
+Polygon::Polygon(Vector<Point> vecPoints&){
+  copy(vecPoint.begin(),vecPoint.end();std::back_inserter(m_Points));
+}
+Polygon::~Polygon(){
+}
+Polygon::Polygon(Polygon&){
+  copy(Polygon.m_Points.begin(),Polygon.m_Points.end();std::back_inserter
+
+(m_Points));
+}
+
+2. 为Point 类设计一个数据绑定机制，当其坐标x 或y 被更改时，可以通知外界
+其更改的过程（即从旧值改为新值）。将更改过程打印在控制台上。考虑使用松
+耦合设计（即未来有可能将更改过程显示在任何界面上）。
+class Point {
+int x:
+int y;
+}
+答：
+class Point{
+public:
+int set_x(int tmpx);
+int set_y(int tmpy);
+int setMonitor();
+
+private:
+int x;
+int y;
+vector<Monitor*> pm;
+};
+
+Point::set_x(int tmpx){
+  x = tmpx;
+  for(iterator<Monitor*> it = pm.begin();
+  it != pm.end();
+  it++)
+  {
+    (*it)->notify();
+  }
+}
+Point::set_y(int tmpy){
+  y = tmpy;
+  for(iterator<Monitor*> it = pm.begin();
+  it != pm.end();
+  it++)
+  {
+    (*it)->notify();
+  }
+}
+Point::setMonitor(Monitor* im){
+  pm .push_back(im);
+}
+class Monitor{
+virtual int notify() = 0;
+}
+
+
+class someClass :public Monitor{
+int notify(){...}
+}
+
+
+stl与泛型编程
+1. 给定一个vector：v1 = [0, 0, 30, 20, 0, 0, 0, 0, 10, 0]，希望通过
+not_equal_to 算法找到到不为零的元素，并复制到另一个vector: v2
+for(iterator iter = v1.begin();
+    iter != v1.end();
+    iter ++)
+{
+     if( not_equal_to (*iter,0)
+     {
+      v2.push_back(*iter);
+     }
+}
+2...
+这stl与泛型编程尚没有来得及听视频，我对这一部分也不是特别熟，所以这些题目暂时答
+
+不上来。
+
+
+
+算法与系统设计
+1给定一移动个窗口，计算在这个窗口内的平均数，举例：
+MovingAverage ma = new MovingAverage(2);
+ma.next(1) return 1
+ma.next(3) return 2
+ma.next(4) return 3.5
+答：
+设计一个数组在new MovingAverage时，根据参数决定数组大小；
+设计一个循环迭代器，使得此迭代器一旦到最后一个元素，下一个就指向数组第一个元素
+计算数组的平均数。
+
+2给一个string列表，判断有多少个不同的string，返回个数
+相同的定义：字符串长度相等并从左到右，或从右往左是同样的字符
+abc和cba为视为相同
+答：
+1设计一个正反都能比较的字串比较函数，传入参数为（参照字串，被比较字串的起始位置
+
+，被比较函数的最终位置，怎样获得当前位置的下一个字符）
+2设置三个列表指针，一个为列表起始，一个为当前在检查的列表位置，一个为列表最末
+取当前检查列表中的字符串，依此与从列表起始，检查到当前正在检查的位置，进行比较，
+
+如果有相同的就不做计数，否则计数器加一。
+当“当前检查的位置”到达列表末尾时，计数器就表达了没有重复的字串一共有几个
